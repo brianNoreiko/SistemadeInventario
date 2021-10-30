@@ -3,7 +3,7 @@ package com.example.demo.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import org.springframework.data.annotation.AccessType;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -25,7 +25,12 @@ public class Product {
     private Double price;
     @Column(name = "description")
     private String description;
+    @AccessType(AccessType.Type.PROPERTY)
+    @Column(name = "type_product")
+    private ProductType productType;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provider_id")
     private Provider provider;
+
+
 }
