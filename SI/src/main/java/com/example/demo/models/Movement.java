@@ -22,7 +22,7 @@ public class Movement {
 
     @NotNull(message = "Se necesita al menos un producto en el movimiento")
     @OneToOne
-    @JoinColumn (name = "procut_id")
+    @JoinColumn (name = "product_id")
     private Product product;
     @NotNull
     @NotEmpty(message = "La cantidad debe ser igual o mayor a 1")
