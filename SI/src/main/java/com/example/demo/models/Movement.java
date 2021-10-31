@@ -21,7 +21,8 @@ public class Movement {
     private Integer id;
 
     @NotNull(message = "Se necesita al menos un producto en el movimiento")
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToOne
+    @JoinColumn (name = "procut_id")
     private Product product;
     @NotNull
     @NotEmpty(message = "La cantidad debe ser igual o mayor a 1")
