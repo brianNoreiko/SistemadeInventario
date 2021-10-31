@@ -25,7 +25,7 @@ public class ProductController {
 
     @PostMapping("/")
     public ResponseEntity<Response> addProduct(@RequestBody Product product) {
-        Provider productAdded = productService.add(product);
+        Product productAdded = productService.add(product);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -34,8 +34,8 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Product>> getAllProducts(){
-        return EntityResponse.listResponse(productService.getAll());
+    public List<Product> getAllProducts(){
+        return productService.getAll();
     }
 
     @GetMapping("/{id}")

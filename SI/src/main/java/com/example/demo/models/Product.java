@@ -17,8 +17,11 @@ public class Product {
     @Column(name = "product_Id",unique = true,nullable = false)
     private Integer id;
     @NotNull(message = "El producto necesita tener un nombre")
-    @Column(name = "name")
-    private String name;
+    @Column(name = "brand")
+    private String brand;
+    @NotNull
+    @Column(name = "model")
+    private String model;
     @Column(name = "barcode")
     private String barcode;
     @Column(name = "price")

@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.Movement;
-import com.example.demo.models.Product;
 import com.example.demo.service.MovementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,13 +30,13 @@ public class MovementController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Product>> getAllMovements(){
-        return EntityResponse.listResponse(movementService.getAllMovements());
+    public List<Movement> getAllMovements(){
+        return movementService.getAllMovements();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Movement> getMovementById(@RequestParam(value = "id") Integer id){
-        Movement movement= movementService.getMovById(id);
+        Movement movement= movementService.getById(id);
         return ResponseEntity.ok(movement);
     }
     @DeleteMapping("/{id}")

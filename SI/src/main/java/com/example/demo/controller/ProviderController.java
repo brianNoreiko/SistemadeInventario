@@ -7,10 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 import response.Response;
 import utils.EntityResponse;
 import utils.EntityURLBuilder;
+
+import java.util.List;
 
 
 @RestController
@@ -31,8 +32,8 @@ public class ProviderController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Provider>> getAllProviders(){
-        return EntityResponse.listResponse(providerService.getAll());
+    public List<Provider> getAllProviders(){
+        return providerService.getAll();
     }
 
     @GetMapping("/{id}")
