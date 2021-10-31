@@ -1,13 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.Movement;
+import com.example.demo.models.responses.Response;
 import com.example.demo.service.MovementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import response.Response;
 import utils.EntityResponse;
 import utils.EntityURLBuilder;
 
@@ -22,7 +22,7 @@ public class MovementController {
     @PostMapping("/")
     public ResponseEntity<Response> createMovement(@RequestBody Movement movement) {
         Movement movementCreated = movementService.create(movement);
-        return ResponseEntity
+        return (ResponseEntity<Response>) ResponseEntity
                 .status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
                 .location(EntityURLBuilder.buildURL("movements",movementCreated.getId()))

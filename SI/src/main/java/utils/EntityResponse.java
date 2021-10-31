@@ -1,16 +1,17 @@
 package utils;
 
 
-import com.example.demo.models.Product;
+
+import com.example.demo.models.responses.Response;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import response.Response;
 
 import java.util.List;
 
 public class EntityResponse {
 
-    public static <T> ResponseEntity<List<T>> listResponse(List<Product> page) {
+    public static <T> ResponseEntity<List<T>> listResponse(Page<T> page) {
         if (!page.getContent().isEmpty()) {
             return ResponseEntity.
                     status(HttpStatus.OK).

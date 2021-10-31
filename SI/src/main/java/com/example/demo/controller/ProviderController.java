@@ -1,13 +1,15 @@
 package com.example.demo.controller;
 
+import com.example.demo.models.Product;
 import com.example.demo.models.Provider;
+import com.example.demo.models.responses.Response;
 import com.example.demo.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import response.Response;
+
 import utils.EntityResponse;
 import utils.EntityURLBuilder;
 

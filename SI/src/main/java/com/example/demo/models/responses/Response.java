@@ -1,4 +1,4 @@
-package response;
+package com.example.demo.models.responses;
 
 import lombok.Builder;
 import lombok.Data;
