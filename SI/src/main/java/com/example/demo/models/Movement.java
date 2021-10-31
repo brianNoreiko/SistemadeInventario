@@ -19,7 +19,9 @@ public class Movement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "movement_id")
     private Integer id;
+
     @NotNull(message = "Se necesita al menos un producto en el movimiento")
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY)
     private Product product;
     @NotNull
     @NotEmpty(message = "La cantidad debe ser igual o mayor a 1")
