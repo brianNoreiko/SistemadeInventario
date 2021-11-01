@@ -19,7 +19,7 @@ public class MovementController {
     @Autowired
     MovementService movementService;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Response> createMovement(@RequestBody Movement movement) {
         Movement movementCreated = movementService.create(movement);
         return (ResponseEntity<Response>) ResponseEntity
@@ -29,7 +29,7 @@ public class MovementController {
                 .body(EntityResponse.messageResponse("Movement created successfully"));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Movement> getAllMovements(){
         return movementService.getAllMovements();
     }

@@ -17,13 +17,13 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(name = "/providers")
+@RequestMapping("/providers")
 public class ProviderController {
 
     @Autowired
     ProviderService providerService;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Response> addProvider(@RequestBody Provider provider) {
         Provider providerAdded = providerService.add(provider);
         return ResponseEntity
@@ -33,7 +33,7 @@ public class ProviderController {
                 .body(EntityResponse.messageResponse("Provider created successfully"));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Provider> getAllProviders(){
         return providerService.getAll();
     }

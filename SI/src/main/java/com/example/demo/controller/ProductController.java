@@ -22,7 +22,7 @@ public class ProductController {
     ProductService productService;
 
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Response> addProduct(@RequestBody Product product) {
         Product productAdded = productService.add(product);
         return ResponseEntity
@@ -32,7 +32,7 @@ public class ProductController {
                 .body(EntityResponse.messageResponse("Product created successfully"));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Product> getAllProducts(){
         return productService.getAll();
     }
