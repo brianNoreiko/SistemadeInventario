@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,10 +27,9 @@ public class Provider {
     @NotNull(message = "email requerido")
     private String email;
     @NotNull
-    @NotEmpty(message = "El lead time debe ser mayor a 0")
-    @Size(min = 1, message = "El Lead Time debe ser igual o mayor a 1(medido en días)")
+    @Min(value = 1, message = "El Lead Time debe ser igual o mayor a 1(medido en días)")
     @Column(name = "leadtime")
-    private Double leadTime;
+    private Integer leadTime;
     @OneToMany(mappedBy = "provider", fetch = FetchType.LAZY)
     private List<Product> productList;
 }

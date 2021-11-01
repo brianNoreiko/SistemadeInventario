@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.models.Product;
+
 import com.example.demo.models.Provider;
 import com.example.demo.models.responses.Response;
 import com.example.demo.service.ProviderService;
@@ -9,19 +9,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import utils.EntityResponse;
 import utils.EntityURLBuilder;
-
 import java.util.List;
 
-
+@CrossOrigin(origins = "http://localhost:4200",methods = {RequestMethod.POST,RequestMethod.GET})
 @RestController
 @RequestMapping("/providers")
 public class ProviderController {
 
+    final ProviderService providerService;
+
     @Autowired
-    ProviderService providerService;
+    public ProviderController(ProviderService providerService) {
+        this.providerService = providerService;
+    }
 
     @PostMapping
     public ResponseEntity<Response> addProvider(@RequestBody Provider provider) {
@@ -39,12 +41,12 @@ public class ProviderController {
     }
 
     @GetMapping("/{id}")
-        public ResponseEntity<Provider> getProviderById(@RequestParam(value = "id") Integer id){
+        public ResponseEntity<Provider> getProviderById(@PathVariable(value = "id") Integer id){
             Provider provider = providerService.getById(id);
             return ResponseEntity.ok(provider);
         }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Response> deleteById(@RequestParam(value = "id") Integer id){
+    public ResponseEntity<Response> deleteById(@PathVariable(value = "id") Integer id){
         providerService.delete(id);
         return ResponseEntity.accepted().build();
     }
