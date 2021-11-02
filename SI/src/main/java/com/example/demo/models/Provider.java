@@ -30,6 +30,4 @@ public class Provider {
     @Min(value = 1, message = "El Lead Time debe ser igual o mayor a 1(medido en días)")
     @Column(name = "leadtime")
     private Integer leadTime;
-    @OneToMany(mappedBy = "provider", fetch = FetchType.LAZY)
-    private List<Product> productList;
 }

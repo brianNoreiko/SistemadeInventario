@@ -1,16 +1,17 @@
 package com.example.demo.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.AccessType;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Builder
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +37,5 @@ public class Product {
     private Provider provider;
     @Column
     private Integer units;
-
 
 }
