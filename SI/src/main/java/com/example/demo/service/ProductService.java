@@ -35,4 +35,8 @@ public class ProductService {
             System.out.println("El producto no existe");
         }
     }
+
+    public Product getByBarcode(String barcode) {
+        return productRepository.findByBarcode(barcode);
+    }
 }

@@ -1,18 +1,18 @@
 package com.example.demo.models;
 
-public enum ProductType {
+public enum Category {
     A("A"),
     B("B"),
     C("C");
 
     private String description;
 
-    ProductType(String description){
+    Category(String description){
         this.description = description;
     }
 
-    public static ProductType find (String value){
-        for ( ProductType p : values()){
+    public static Category find (String value){
+        for ( Category p : values()){
             if(p.toString().equalsIgnoreCase(value)){
                 return p;
             }

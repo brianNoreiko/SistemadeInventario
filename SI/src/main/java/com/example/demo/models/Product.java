@@ -30,10 +30,12 @@ public class Product {
     private String description;
     @AccessType(AccessType.Type.PROPERTY)
     @Column(name = "type_product")
-    private ProductType productType;
+    private Category category;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provider_id")
     private Provider provider;
+    @Column
+    private Integer units;
 
 
 }

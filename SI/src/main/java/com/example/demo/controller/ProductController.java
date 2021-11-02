@@ -13,14 +13,18 @@ import utils.EntityURLBuilder;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200",methods = {RequestMethod.POST,RequestMethod.GET})
 @RestController
 @RequestMapping("/products")
 
 public class ProductController {
 
-    @Autowired
-    ProductService productService;
+    final ProductService productService;
 
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @PostMapping
     public ResponseEntity<Response> addProduct(@RequestBody Product product) {
@@ -38,12 +42,19 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@RequestParam(value = "id") Integer id){
+    public ResponseEntity<Product> getProductById(@PathVariable(value = "id") Integer id){
         Product product = productService.getById(id);
         return ResponseEntity.ok(product);
     }
+
+    @GetMapping("/barcode/{barcode}")
+    public ResponseEntity<Product> getProductByBarcode(@PathVariable(value = "barcode") String barcode){
+        Product product = productService.getByBarcode(barcode);
+        return ResponseEntity.ok(product);
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Response> deleteById(@RequestParam(value = "id") Integer id){
+    public ResponseEntity<Response> deleteById(@PathVariable(value = "id") Integer id){
         productService.delete(id);
         return ResponseEntity.accepted().build();
     }

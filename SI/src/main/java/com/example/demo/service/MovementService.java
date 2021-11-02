@@ -14,6 +14,7 @@ public class MovementService {
     MovementRepository movementRepository;
 
     public Movement create(Movement movement){
+        movement.getProduct().setUnits(movement.getProduct().getUnits()+movement.getQuantity());
         return movementRepository.save(movement);
     }
 

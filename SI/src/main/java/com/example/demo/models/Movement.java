@@ -1,19 +1,20 @@
 package com.example.demo.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor
+
 public class Movement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +22,7 @@ public class Movement {
     private Integer id;
 
     @NotNull(message = "Se necesita al menos un producto en el movimiento")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn (name = "product_id")
     private Product product;
     @NotNull
@@ -30,5 +31,5 @@ public class Movement {
     @Column(name = "quantity")
     private Integer quantity;
     @Column(name = "date")
-    private LocalDate date;
+    private LocalDateTime date;
 }
