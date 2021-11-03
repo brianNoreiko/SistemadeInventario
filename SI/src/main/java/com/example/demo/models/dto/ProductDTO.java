@@ -10,8 +10,11 @@ public class ProductDTO {
     String description;
     Category category;
     Integer provider;
+    Integer serviceLevel;
+    Double prepareCost;
+    Double storageCost;
 
-    public ProductDTO( String brand, String model, String barcode, Double price, String description, Category category, Integer provider) {
+    public ProductDTO( String brand, String model, String barcode, Double price, String description, Category category, Integer provider,Integer serviceLevel,Double prepareCost,Double storageCost) {
         this.brand = brand;
         this.model = model;
         this.barcode = barcode;
@@ -19,6 +22,9 @@ public class ProductDTO {
         this.description = description;
         this.category = category;
         this.provider = provider;
+        this.serviceLevel = serviceLevel;
+        this.prepareCost = prepareCost;
+        this.storageCost = storageCost;
     }
 
 
@@ -76,5 +82,29 @@ public class ProductDTO {
 
     public void setProvider(Integer provider) {
         this.provider = provider;
+    }
+
+    public Integer getServiceLevel() {
+        return serviceLevel;
+    }
+
+    public void setServiceLevel(Integer serviceLevel) {
+        this.serviceLevel = serviceLevel;
+    }
+
+    public Double getPrepareCost() {
+        return prepareCost;
+    }
+
+    public void setPrepareCost(Double prepareCost) {
+        this.prepareCost = prepareCost;
+    }
+
+    public Double getStorageCost() {
+        return storageCost;
+    }
+
+    public void setStorageCost(Double storageCost) {
+        this.storageCost = storageCost;
     }
 }

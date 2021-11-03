@@ -42,6 +42,9 @@ public class ProductController {
                 .description(product.getDescription())
                 .provider(prov)
                 .units(0)
+                .prepareCost(product.getPrepareCost())
+                .storageCost(product.getStorageCost())
+                .serviceLevel(product.getServiceLevel())
                 .price(product.getPrice()).build();
         return ResponseEntity
                 .status(HttpStatus.CREATED)

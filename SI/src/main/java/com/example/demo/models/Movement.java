@@ -26,8 +26,6 @@ public class Movement {
     @JoinColumn (name = "product_id")
     private Product product;
     @NotNull
-    @NotEmpty(message = "La cantidad debe ser igual o mayor a 1")
-    @Size(min = 1)
     @Column(name = "quantity")
     private Integer quantity;
     @Column(name = "date")
