@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import com.example.demo.models.Movement;
 import com.example.demo.repository.MovementRepository;
@@ -24,6 +25,14 @@ public class MovementService {
 
     public Movement getById(Integer id){
         return movementRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
+    }
+
+    public List<Movement> findAllByDateIsAfterAndProductId(LocalDateTime date, Integer id){
+        return movementRepository.findAllByDateIsAfterAndProductId(date,id);
+    }
+
+    public List<Movement> findAllByDateIsAfter(LocalDateTime date){
+        return movementRepository.findAllByDateIsAfter(date);
     }
 
     public void deleteMovement(Integer id){

@@ -17,10 +17,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_Id",unique = true,nullable = false)
     private Integer id;
-    @NotNull(message = "El producto necesita tener un nombre")
     @Column(name = "brand")
     private String brand;
-    @NotNull
     @Column(name = "model")
     private String model;
     @Column(name = "barcode")
@@ -37,5 +35,11 @@ public class Product {
     private Provider provider;
     @Column
     private Integer units;
+    @Column
+    private Integer serviceLevel;
+    @Column
+    private Double prepareCost;
+    @Column
+    private Double storageCost;
 
 }
