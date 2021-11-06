@@ -39,4 +39,8 @@ public class ProductService {
     public Product getByBarcode(String barcode) {
         return productRepository.findByBarcode(barcode);
     }
+
+    public Product updateProduct(Product updatedProduct) {
+        return productRepository.save(updatedProduct);
+    }
 }

@@ -25,7 +25,7 @@ public class Product {
     private String barcode;
     @Column(name = "price")
     private Double price;
-    @Column(name = "description")
+    @Column(name = "description",length = 600)
     private String description;
     @AccessType(AccessType.Type.PROPERTY)
     @Column(name = "type_product")
@@ -36,7 +36,7 @@ public class Product {
     @Column
     private Integer units;
     @Column
-    private Integer serviceLevel;
+    private Double serviceLevel;
     @Column
     private Double prepareCost;
     @Column

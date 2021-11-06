@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface MovementRepository extends JpaRepository<Movement,Integer> {
-    List<Movement> findAllByDateIsAfterAndProductId(LocalDateTime date, Integer id);
-    List<Movement> findAllByDateIsAfter(LocalDateTime date);
+    List<Movement> findAllByDateIsAfterAndProductIdOrderByDate(LocalDateTime date, Integer id);
+    List<Movement> findAllByDateIsAfterOrderByDate(LocalDateTime date);
 }

@@ -28,11 +28,11 @@ public class MovementService {
     }
 
     public List<Movement> findAllByDateIsAfterAndProductId(LocalDateTime date, Integer id){
-        return movementRepository.findAllByDateIsAfterAndProductId(date,id);
+        return movementRepository.findAllByDateIsAfterAndProductIdOrderByDate(date,id);
     }
 
     public List<Movement> findAllByDateIsAfter(LocalDateTime date){
-        return movementRepository.findAllByDateIsAfter(date);
+        return movementRepository.findAllByDateIsAfterOrderByDate(date);
     }
 
     public void deleteMovement(Integer id){

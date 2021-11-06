@@ -10,11 +10,11 @@ public class ProductDTO {
     String description;
     Category category;
     Integer provider;
-    Integer serviceLevel;
+    Double serviceLevel;
     Double prepareCost;
     Double storageCost;
 
-    public ProductDTO( String brand, String model, String barcode, Double price, String description, Category category, Integer provider,Integer serviceLevel,Double prepareCost,Double storageCost) {
+    public ProductDTO( String brand, String model, String barcode, Double price, String description, Category category, Integer provider,Double serviceLevel,Double prepareCost,Double storageCost) {
         this.brand = brand;
         this.model = model;
         this.barcode = barcode;
@@ -84,11 +84,11 @@ public class ProductDTO {
         this.provider = provider;
     }
 
-    public Integer getServiceLevel() {
+    public Double getServiceLevel() {
         return serviceLevel;
     }
 
-    public void setServiceLevel(Integer serviceLevel) {
+    public void setServiceLevel(Double serviceLevel) {
         this.serviceLevel = serviceLevel;
     }
 
