@@ -45,6 +45,7 @@ public class ProductController {
                 .prepareCost(product.getPrepareCost())
                 .storageCost(product.getStorageCost())
                 .serviceLevel(product.getServiceLevel())
+                .revisionPeriod(product.getRevisionPeriod())
                 .price(product.getPrice()).build();
         return ResponseEntity
                 .status(HttpStatus.CREATED)

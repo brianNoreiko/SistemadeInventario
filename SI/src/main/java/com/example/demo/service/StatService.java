@@ -4,7 +4,6 @@ import com.example.demo.models.*;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
@@ -24,20 +23,16 @@ public class StatService {
 
     //con demanda ultimo mes
     public Stat getStats(Product pr) {
-        List<Movement> extractions = movementService.findAllByDateIsAfterAndProductId(LocalDateTime.now().minus(Period.ofMonths(1)), pr.getId()).stream()
-                .filter(movement -> movement.getQuantity() < 0)
-                .collect(Collectors.toList());
-        // if (extractions.size()>0){
+        Integer optimalQuantity = null;
+        List<Movement> extractions = movementService.findAllExtractionsByProductIdMonthly(pr.getId());
         int dailyDemand = calculateDailyDemand(extractions);
-        int optimalQuantity = (int) calculateOptimalQuantity(pr, dailyDemand * 365);
-        double demandDispersion = calculateDemandDispersion(extractions, dailyDemand );
-        int reorder = calculateReorder(pr, demandDispersion, dailyDemand);
-        double cav = calculateAnnualConsumption(pr.getPrice(),dailyDemand*365);
+        double demandDispersion = calculateDemandDispersion(extractions, dailyDemand);
+        double cav = calculateAnnualConsumption(pr.getPrice(), dailyDemand * 365);
         Category optimalCat = calculateOptimalCategory(pr);
-        return new Stat(optimalCat, optimalQuantity, reorder, dailyDemand, cav, demandDispersion);
-       /* }
-        else
-            return null;*/
+        if (!pr.getCategory().equals(Category.C)) {
+            optimalQuantity = (int) calculateOptimalQuantity(pr, dailyDemand * 365);
+        }
+        return new Stat(optimalCat, optimalQuantity, dailyDemand, cav, demandDispersion);
     }
 
     private Category calculateOptimalCategory(Product pr) {
@@ -48,10 +43,10 @@ public class StatService {
         TreeMap<Double, Product> productsCAV = new TreeMap<>();
         TreeMap<Double, Product> productsPercent = new TreeMap<>();
         for (Product product : allProducts) {
-            List<Movement> exts=movementService.findAllByDateIsAfterAndProductId(LocalDateTime.now().minus(Period.ofMonths(1)), pr.getId()).stream()
+            List<Movement> exts = movementService.findAllByDateIsAfterAndProductId(LocalDateTime.now().minus(Period.ofMonths(1)), pr.getId()).stream()
                     .filter(movement -> movement.getQuantity() < 0)
                     .collect(Collectors.toList());
-            double cav = calculateAnnualConsumption(product.getPrice(),calculateDailyDemand(exts));
+            double cav = calculateAnnualConsumption(product.getPrice(), calculateDailyDemand(exts));
             cava += cav;
             productsCAV.put(cav, product);
         }
@@ -84,13 +79,13 @@ public class StatService {
         return Math.ceil(Math.sqrt(((2 * annualDemand * pr.getPrepareCost()) / pr.getStorageCost())));
     }
 
-    private int calculateReorder(Product pr, double demandDispersion, int dailyDemand) {
+    public int calculateReorder(Product pr, double demandDispersion, int dailyDemand) {
         double oL = Math.sqrt(pr.getProvider().getLeadTime()) * demandDispersion;
         double securityUnits = new NormalDistribution().cumulativeProbability(pr.getServiceLevel()) * oL;
-        return (int) Math.ceil(securityUnits + (dailyDemand*pr.getProvider().getLeadTime()));
+        return (int) Math.ceil(securityUnits + (dailyDemand * pr.getProvider().getLeadTime()));
     }
 
-    private int calculateDailyDemand(List<Movement> extractions) {
+    public int calculateDailyDemand(List<Movement> extractions) {
         int sum = 0;
         double numberOfDays = 0;
         if (extractions.size() > 0) {
@@ -102,15 +97,24 @@ public class StatService {
         return (int) Math.ceil(sum / (numberOfDays + 1));
     }
 
-    private double calculateAnnualConsumption(double price,int annualDemand) {
+    private double calculateAnnualConsumption(double price, int annualDemand) {
         return price * annualDemand;
     }
 
-    private double calculateDemandDispersion(List<Movement> movements, double annualDemand) {
+    public double calculateDemandDispersion(List<Movement> extractions, double annualDemand) {
         double sum = 0.0;
-        for (Movement ext : movements) {
-            sum += Math.pow((ext.getQuantity() * -1) - annualDemand,2);
+        for (Movement ext : extractions) {
+            sum += Math.pow((ext.getQuantity() * -1) - annualDemand, 2);
         }
-        return (sum > 0) ? Math.sqrt(sum / movements.size()) : 0.0;
+        return (sum > 0) ? Math.pow((sum / extractions.size()),1/2) : 0.0;
+    }
+
+    public int calculateOptimalQuantityP(Product pr, double demandDispersion, int dailyDemand) {
+        int T = pr.getRevisionPeriod();
+        int L = pr.getProvider().getLeadTime();
+        double oTL = Math.sqrt(T + L) * demandDispersion;
+        double securityUnits = new NormalDistribution().cumulativeProbability(pr.getServiceLevel()) * oTL;
+        double demandVulnerableTime = dailyDemand * (T + L);
+        return (int) Math.ceil(securityUnits + demandVulnerableTime - pr.getUnits());
     }
 }

@@ -8,7 +8,6 @@ import lombok.Data;
 public class Stat {
     private Category optimalCategory;
     private Integer optimalQuantity;
-    private Integer reorder;
     private Integer dailyDemand;
     private Double annualConsumption;
     private Double demandDispersion;

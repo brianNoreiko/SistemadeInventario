@@ -41,5 +41,8 @@ public class Product {
     private Double prepareCost;
     @Column
     private Double storageCost;
-
+    @Column //days
+    private Integer revisionPeriod;
+    @Column
+    private Integer reorderPoint;
 }
