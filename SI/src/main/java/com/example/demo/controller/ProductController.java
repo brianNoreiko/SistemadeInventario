@@ -16,7 +16,7 @@ import utils.EntityURLBuilder;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.POST, RequestMethod.GET})
+@CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.POST, RequestMethod.GET,RequestMethod.PUT})
 @RestController
 @RequestMapping("/products")
 
@@ -45,6 +45,7 @@ public class ProductController {
                 .prepareCost(product.getPrepareCost())
                 .storageCost(product.getStorageCost())
                 .serviceLevel(product.getServiceLevel())
+                .revisionPeriod(product.getRevisionPeriod())
                 .price(product.getPrice()).build();
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -68,6 +69,11 @@ public class ProductController {
     public ResponseEntity<Product> getProductByBarcode(@PathVariable(value = "barcode") String barcode) {
         Product product = productService.getByBarcode(barcode);
         return ResponseEntity.ok(product);
+    }
+
+    @PutMapping()
+    public ResponseEntity<Product> editProductById(@RequestBody Product editedProduct){
+        return ResponseEntity.ok(productService.updateProduct(editedProduct));
     }
 
     @DeleteMapping("/{id}")

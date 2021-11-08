@@ -5,6 +5,7 @@ spring:
       path: /console
   datasource:
     url: jdbc:h2:mem:udeedb
+    username: us
   jpa:
     show-sql: true
 
